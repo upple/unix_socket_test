@@ -14,7 +14,7 @@ gboolean callback(GIOChannel *io, int condition, void *data)
 {
         int client_fd = *(int *)data;
         int read_fd = g_io_channel_unix_get_fd(io);
-        char buf[MAX_LEN];
+        char buf[MAX_LEN] = {};
         int ret;
         int len;
 
@@ -68,7 +68,7 @@ int main()
         }
 
         io = g_io_channel_unix_new(STDIN_FILENO);
-        g_io_add_watch(io, G_IO_IN, callback, &client_fd);
+        g_io_add_watch(io, G_IO_IN, (GIOFunc)callback, &client_fd);
 
         printf("Unix domain socket sample start\n");
         printf(">> ");

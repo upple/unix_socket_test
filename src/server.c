@@ -51,7 +51,7 @@ gboolean accept_callback(int fd, int cond, void *data)
 
         cond = G_IO_IN | G_IO_ERR | G_IO_HUP;
         io = g_io_channel_unix_new(client_fd);
-        g_io_add_watch(io, cond, receive_callback, NULL);
+        g_io_add_watch(io, cond, (GIOFunc)receive_callback, NULL);
         printf("Client conneted\n");
         return TRUE;
 }
@@ -82,7 +82,7 @@ int main()
                 server_addr.sun_family = AF_UNIX;
                 strcpy(server_addr.sun_path, SOCK_PATH);
                 unlink(SOCK_PATH);
-                if (bind(server_fd, (struct sockaddr_un *)&server_addr, 
+                if (bind(server_fd, (struct sockaddr *)&server_addr, 
                         sizeof(server_addr)) < 0) {
                         perror("bind error");
                         return 1;
@@ -94,7 +94,7 @@ int main()
                 }
         }
 
-        g_unix_fd_add(server_fd, G_IO_IN, accept_callback, NULL);
+        g_unix_fd_add(server_fd, G_IO_IN, (GUnixFDSourceFunc)accept_callback, NULL);
 
         loop = g_main_loop_new(NULL, FALSE);
         g_main_loop_run(loop);
