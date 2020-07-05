@@ -3,7 +3,7 @@
 ### - Systemd unix domain socket sample
 
 ## Preparations
-Your system must be Linux systemd init system.
+Your system must have be Linux systemd init system.
 You need some packages.
 ```
 glib-2.0
