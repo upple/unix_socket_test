@@ -1,0 +1,9 @@
+[Unit]
+Description=Systemd unix domain socket sample
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/socketServer
+
+[Install]
+WantedBy=default.target

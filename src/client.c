@@ -38,6 +38,8 @@ gboolean callback(GIOChannel *io, int condition, void *data)
         }
 
         printf("Receiving data : %s\n", buf);
+        printf("\n>> ");
+        fflush(stdout);
         return TRUE;
 }
 int main()
@@ -67,6 +69,10 @@ int main()
 
         io = g_io_channel_unix_new(STDIN_FILENO);
         g_io_add_watch(io, G_IO_IN, callback, &client_fd);
+
+        printf("Unix domain socket sample start\n");
+        printf(">> ");
+        fflush(stdout);
 
         loop = g_main_loop_new(NULL, FALSE);
         g_main_loop_run(loop);

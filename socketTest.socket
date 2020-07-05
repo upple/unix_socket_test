@@ -1,0 +1,5 @@
+[Socket]
+ListenStream=/run/socketTest.sk
+
+[Install]
+WantedBy=sockets.target
